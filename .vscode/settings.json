@@ -1,0 +1,10 @@
+{
+  "eslint.packageManager": "yarn",
+  // VSCode doesn't know about aliases, uses incorrect paths
+  "javascript.suggest.autoImports": false,
+  "typescript.suggest.autoImports": false,
+  "files.eol": "\n",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
