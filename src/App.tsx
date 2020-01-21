@@ -1,26 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { SharedLayout } from './components/SharedLayout';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <SharedLayout
+    data-testid="app-root"
+    header={<>Header</>}
+    footer={<>Footer</>}
+  >
+    Hi!
+  </SharedLayout>
+);
 
+// eslint-disable-next-line import/no-default-export
 export default App;

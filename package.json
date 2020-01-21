@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -40,9 +42,9 @@
     "**/*.{js,jsx,ts,tsx}": [
       "pretty-quick --staged",
       "eslint --config ./.eslintrc.precommit.js --fix",
-      "yarn test --bail --findRelatedTests"
+      "yarn test --bail --findRelatedTests --watchAll=false"
     ],
-    "**/*.{json}": [
+    "**/*.{css,html,json}": [
       "pretty-quick --staged"
     ]
   },
