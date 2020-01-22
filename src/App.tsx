@@ -1,14 +1,10 @@
 import React from 'react';
-import { SharedLayout } from './components/SharedLayout';
+import { AppLayout } from './components/AppLayout';
 
-const App: React.FC = () => (
-  <SharedLayout
-    data-testid="app-root"
-    header={<>Header</>}
-    footer={<>Footer</>}
-  >
-    Hi!
-  </SharedLayout>
+const App: React.FC = props => (
+  <AppLayout data-testid="app-root" {...props}>
+    Hello!
+  </AppLayout>
 );
 
 // eslint-disable-next-line import/no-default-export
