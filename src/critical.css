@@ -8,6 +8,10 @@ body {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 /**
  * Root mount point of app
  */

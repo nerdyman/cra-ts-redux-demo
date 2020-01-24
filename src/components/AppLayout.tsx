@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,9 +14,12 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../logo.svg';
-import { AppNavigation } from './AppNavigation';
+import { appConfigBranding, appConfigRoutesInitial } from '../app-config';
+import { useRouteActive } from '../utilities/hooks';
+import { AppNavigation, AppNavigationProps } from './AppNavigation';
 
 const drawerWidth = 240;
 
@@ -43,23 +47,41 @@ const useAppLayoutSideStyles = makeStyles((theme: Theme) =>
 );
 
 /** Side content for `AppLayout` */
-const AppLayoutSide: React.FC = props => {
+const AppLayoutSide: React.FC<AppNavigationProps> = ({
+  onNavItemClick,
+  ...props
+}) => {
   const classes = useAppLayoutSideStyles();
 
   return (
     <div {...props}>
-      <div className={classes.logo}>
+      <Link className={classes.logo} to={appConfigRoutesInitial.pathname}>
         <Logo className={classes.logoSvg} />
         <Typography
           variant="subtitle2"
           component="p"
           className={classes.logoText}
         >
-          Consent App
+          {appConfigBranding.name}
         </Typography>
-      </div>
-      <AppNavigation />
+      </Link>
+      <Divider />
+      <AppNavigation onNavItemClick={onNavItemClick} />
     </div>
+  );
+};
+
+/**
+ * Main layout title
+ */
+const AppLayoutTitle: React.FC = () => {
+  const route = useRouteActive();
+  const title = route?.title || appConfigBranding.name;
+
+  return (
+    <Typography variant="h6" component="h1" noWrap>
+      {title}
+    </Typography>
   );
 };
 
@@ -120,9 +142,7 @@ export const AppLayout: React.FC = ({ children, ...props }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="h1" noWrap>
-            Responsive drawer
-          </Typography>
+          <AppLayoutTitle />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="Navigation">
@@ -139,7 +159,7 @@ export const AppLayout: React.FC = ({ children, ...props }) => {
               keepMounted: true,
             }}
           >
-            <AppLayoutSide />
+            <AppLayoutSide onNavItemClick={handleDrawerToggle} />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
