@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import { appConfigRoutes, appConfigRoutesInitial } from './app-config';
+import { server } from './server';
+import { useStoreUserConsentAddConsents } from './utilities/hooks';
+import { logger } from './utilities/logger';
 import { StoreProvider } from './store/StoreProvider';
 import { AppLayout } from './components/AppLayout';
 import { ViewGiveConsent } from './components/ViewGiveConsent';
@@ -16,8 +19,25 @@ const views: { [key: string]: React.FC } = {
   ViewCollectedConsents,
 };
 
+/**
+ * Isolated init component to dispatch initial app state
+ */
+const AppInit: React.FC = () => {
+  const storeUserConsentAddConsents = useStoreUserConsentAddConsents();
+
+  useEffect(() => {
+    server
+      .getUserConsents()
+      .then(({ data }) => storeUserConsentAddConsents(data))
+      .catch(err => logger.error('[AppInit] Unable to fetch consents.', err));
+  }, [storeUserConsentAddConsents]);
+
+  return null;
+};
+
 const App: React.FC = props => (
   <StoreProvider>
+    <AppInit />
     <BrowserRouter>
       <AppLayout data-testid="app-root" {...props}>
         <Switch>

@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import fromEntries from 'fromentries';
 
 import { AppConfigRoute, appConfigRoutes } from '../app-config';
+import { userConsentConsentsAdd } from '../store/actions';
 import * as storeDefs from '../store/store-defs';
 
 /** `appConfigRoutes` indexed by their `pathname` property */
@@ -33,6 +34,11 @@ export const useStoreUserConsentGetConsents = (): storeDefs.StoreUserConsentColl
   return userConsentConsents;
 };
 
-// export const useStoreUserConsentAddConsents = (record: storeDefs.StoreUserConsentRecord) => {
-//     const userConsentConsents = useSelector((state: storeDefs.Store) => st)
-// };
+/**
+ * Add record to `userConsent.consents`
+ */
+export const useStoreUserConsentAddConsents = () => {
+  const dispatch = useDispatch();
+  return (payload: storeDefs.StoreUserConsentCollection) =>
+    dispatch(userConsentConsentsAdd(payload));
+};

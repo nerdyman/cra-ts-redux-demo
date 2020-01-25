@@ -1,4 +1,4 @@
-import { USER_CONSENT_ADD, UserConsentActionTypes } from '../actions';
+import { USER_CONSENT_CONSENTS_ADD, UserConsentActionTypes } from '../actions';
 import { StoreUserConsent } from '../store-defs';
 
 const initialState: StoreUserConsent = {
@@ -13,13 +13,10 @@ export const reducerUserConsent = (
   action: UserConsentActionTypes,
 ): StoreUserConsent => {
   switch (action.type) {
-    case USER_CONSENT_ADD:
+    case USER_CONSENT_CONSENTS_ADD:
       return {
         ...state,
-        consents: {
-          ...state.consents,
-          ...action.payload,
-        },
+        consents: [...state.consents, ...action.payload],
       };
 
     default:
