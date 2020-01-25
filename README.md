@@ -1,3 +1,31 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/067344c1-c638-431f-9887-c10737a7fa39/deploy-status)](https://app.netlify.com/sites/youthful-allen/deploys)
+
+# Create React App TypeScript + Redux Demo
+
+Super simple demo to submit and view user preferences.
+
+## Debugging
+
+The `debug` query parameter can be added to the URL to enable `logger.debug` calls
+and the Redux Developer Tools on builds.
+
+E.g. `https://youthful-allen.netlify.com/?debug=`
+
+## Built with
+
+- React (hooks)
+- Redux
+- TypeScript
+- Material UI
+- fetch-mock
+- Create React App
+
+## Demo
+
+View live demo at [https://youthful-allen.netlify.com](https://youthful-allen.netlify.com/).
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -7,7 +35,7 @@ In the project directory, you can run:
 ### `yarn start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:4200](http://localhost:4200) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
@@ -42,3 +70,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Notes
+
+- Logo from [https://logodust.com/](https://logodust.com/)
