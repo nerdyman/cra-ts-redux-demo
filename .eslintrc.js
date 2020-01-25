@@ -60,6 +60,9 @@ module.exports = {
     'import/no-unused-modules': 0,
     'import/order': 'warn',
 
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+
     'react/jsx-filename-extension': 0,
     'react/jsx-indent': 0,
     'react/jsx-indent-props': 0,
