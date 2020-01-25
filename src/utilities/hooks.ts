@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import fromEntries from 'fromentries';
 
 import { AppConfigRoute, appConfigRoutes } from '../app-config';
+import { server } from '../server';
 import { userConsentConsentsAdd } from '../store/actions';
 import * as storeDefs from '../store/store-defs';
 
@@ -41,4 +43,16 @@ export const useStoreUserConsentAddConsents = () => {
   const dispatch = useDispatch();
   return (payload: storeDefs.StoreUserConsentCollection) =>
     dispatch(userConsentConsentsAdd(payload));
+};
+
+/**
+ * Post data user consents to server *and* and dispatch to store
+ */
+export const useServerPostUserConsents = () => {
+  const storeUserConsentAddConsents = useStoreUserConsentAddConsents();
+  return useCallback(async (payload: storeDefs.StoreUserConsentCollection) => {
+    await server.postUserConsents(payload);
+    storeUserConsentAddConsents(payload);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 };

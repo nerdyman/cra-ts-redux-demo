@@ -12,6 +12,11 @@ a {
   text-decoration: none;
 }
 
+fieldset {
+  padding: 0;
+  border: 0;
+}
+
 /**
  * Root mount point of app
  */
