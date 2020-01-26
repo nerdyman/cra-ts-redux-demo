@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/067344c1-c638-431f-9887-c10737a7fa39/deploy-status)](https://app.netlify.com/sites/youthful-allen/deploys) [![Build Status](https://github.com/nerdyman/cra-ts-redux-demo/workflows/pipeline/badge.svg)](https://github.com/nerdyman/cra-ts-redux-demo/workflows/pipeline) [![codecov](https://codecov.io/gh/nerdyman/cra-ts-redux-demo/branch/master/graph/badge.svg?token=4YIz2PVvg8)](https://codecov.io/gh/nerdyman/cra-ts-redux-demo)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/067344c1-c638-431f-9887-c10737a7fa39/deploy-status)](https://app.netlify.com/sites/youthful-allen/deploys) [![Build Status](https://github.com/nerdyman/cra-ts-redux-demo/workflows/pipeline/badge.svg)](hhttps://github.com/nerdyman/cra-ts-redux-demo/actions?query=workflow%3Apipeline) [![codecov](https://codecov.io/gh/nerdyman/cra-ts-redux-demo/branch/master/graph/badge.svg?token=4YIz2PVvg8)](https://codecov.io/gh/nerdyman/cra-ts-redux-demo)
 
 # Create React App TypeScript + Redux Demo
 
