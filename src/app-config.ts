@@ -52,7 +52,9 @@ export const appConfigRoutes: AppConfigRoutes = [
 /**
  * Get initial route (throw error if not found)
  */
-const getAppConfigRoutesInitial = (): AppConfigRoute => {
+export const getAppConfigRoutesInitial = (
+  appConfigRoutes: AppConfigRoutes,
+): AppConfigRoute => {
   const routesInitial = appConfigRoutes.find(route => route.initial);
 
   if (!routesInitial) {
@@ -67,4 +69,6 @@ const getAppConfigRoutesInitial = (): AppConfigRoute => {
 /**
  * Initial (default) route
  */
-export const appConfigRoutesInitial = getAppConfigRoutesInitial();
+export const appConfigRoutesInitial = getAppConfigRoutesInitial(
+  appConfigRoutes,
+);

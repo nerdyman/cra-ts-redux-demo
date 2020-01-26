@@ -38,7 +38,7 @@ export interface SharedDialogTitleProps extends WithStyles<typeof styles> {
   onClose?: () => void;
 }
 
-const SharedDialogTitle = withStyles(styles)(
+export const SharedDialogTitle = withStyles(styles)(
   (props: SharedDialogTitleProps) => {
     const { children, classes, onClose, ...other } = props;
     return (

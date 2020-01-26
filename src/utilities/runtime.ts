@@ -6,7 +6,7 @@ export const getRuntimeIsDebug = (): boolean => {
   if (process.env.NODE_ENV === 'development') return true;
 
   // Don't attempt to get URL params on legacy browsers
-  if (!window.URLSearchParams) return false;
+  if (!URLSearchParams) return false;
 
   // Get `debug` param from URL params
   const debugParam = new URLSearchParams(window.location.search).get('debug');

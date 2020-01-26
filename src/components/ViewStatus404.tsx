@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -9,8 +9,10 @@ import { appConfigRoutesInitial } from '../app-config';
 /**
  * Root 404 component
  */
-export const ViewStatus404: React.FC = () => (
-  <Container maxWidth="md">
+export const ViewStatus404: React.FC<{
+  staticContext?: RouteComponentProps['staticContext'];
+}> = ({ staticContext: _staticContext, ...props }) => (
+  <Container maxWidth="md" {...props}>
     <Typography variant="h4" component="h1">
       404: Unable to find page
     </Typography>

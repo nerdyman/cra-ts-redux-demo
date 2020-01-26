@@ -41,6 +41,7 @@ export const server = {
       },
       body: JSON.stringify(payload),
     });
-    return res.json();
+
+    return res.ok;
   },
 };

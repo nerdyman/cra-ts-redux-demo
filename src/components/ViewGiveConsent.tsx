@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
@@ -93,7 +94,9 @@ type DialogMessagesKeys = keyof typeof dialogMessages;
  * Give consent view
  * @TODO - Use shareable functions for event handling
  */
-export const ViewGiveConsent: React.FC = () => {
+export const ViewGiveConsent: React.FC<{
+  staticContext?: RouteComponentProps['staticContext'];
+}> = ({ staticContext: _staticContext, ...props }) => {
   const classes = useStyles();
   const dialogState = useSharedDialogState({ visible: false });
   const [dialogMessage, setDialogMessage] = useState<DialogMessagesKeys>(
@@ -226,7 +229,7 @@ export const ViewGiveConsent: React.FC = () => {
   const Actions = <DialogActions onClose={dialogState.hide} />;
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} {...props}>
       <SharedDialog
         actions={Actions}
         sharedDialogState={dialogState}

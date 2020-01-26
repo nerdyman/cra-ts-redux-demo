@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { useStoreUserConsentGetConsents } from '../utilities/hooks';
 
@@ -35,7 +36,9 @@ const useStyles = makeStyles({
  * @TODO Source table props from object
  * @TODO Show labels instead of property names for consent column
  */
-export const ViewCollectedConsents: React.FC = () => {
+export const ViewCollectedConsents: React.FC<{
+  staticContext?: RouteComponentProps['staticContext'];
+}> = ({ staticContext: _staticContext, ...props }) => {
   const rowsPerPage = 2;
   const [page, setPage] = React.useState(0);
   const classes = useStyles();
@@ -49,7 +52,7 @@ export const ViewCollectedConsents: React.FC = () => {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <Paper>
+    <Paper {...props}>
       <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
