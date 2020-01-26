@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { RouteComponentProps } from 'react-router-dom';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
@@ -53,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     formLabel: {
       marginBottom: theme.spacing(1),
     },
+    formUserInfo: {},
   }),
 );
 
@@ -94,9 +94,7 @@ type DialogMessagesKeys = keyof typeof dialogMessages;
  * Give consent view
  * @TODO - Use shareable functions for event handling
  */
-export const ViewGiveConsent: React.FC<{
-  staticContext?: RouteComponentProps['staticContext'];
-}> = ({ staticContext: _staticContext, ...props }) => {
+export const ViewGiveConsent: React.FC<App.ReactFCTestProps> = props => {
   const classes = useStyles();
   const dialogState = useSharedDialogState({ visible: false });
   const [dialogMessage, setDialogMessage] = useState<DialogMessagesKeys>(
@@ -229,7 +227,7 @@ export const ViewGiveConsent: React.FC<{
   const Actions = <DialogActions onClose={dialogState.hide} />;
 
   return (
-    <Paper className={classes.root} {...props}>
+    <Paper className={classes.root} data-testid={props['data-testid']}>
       <SharedDialog
         actions={Actions}
         sharedDialogState={dialogState}
@@ -248,35 +246,37 @@ export const ViewGiveConsent: React.FC<{
           <FormLabel component="legend" className={classes.formLabel}>
             User Information
           </FormLabel>
-          <TextField
-            className={classes.formInputText}
-            error={!fieldNameIsValid}
-            id="give-consent-name"
-            label="Name"
-            name="name"
-            onChange={handleFieldNameChange}
-            placeholder="Pepe Silvia"
-            required
-            type="text"
-            value={fieldName}
-          />
-          <TextField
-            className={classes.formInputText}
-            error={!fieldEmailIsValid}
-            id="give-consent-email"
-            label="Email"
-            name="email"
-            onChange={handleFieldEmailChange}
-            placeholder="pepe.silvia@example.com"
-            required
-            type="email"
-            value={fieldEmail}
-          />
+          <div className={classes.formUserInfo}>
+            <TextField
+              className={classes.formInputText}
+              error={!fieldNameIsValid}
+              id="give-consent-name"
+              label="Name"
+              name="name"
+              onChange={handleFieldNameChange}
+              placeholder="Pepe Silvia"
+              required
+              type="text"
+              value={fieldName}
+            />
+            <TextField
+              className={classes.formInputText}
+              error={!fieldEmailIsValid}
+              id="give-consent-email"
+              label="Email"
+              name="email"
+              onChange={handleFieldEmailChange}
+              placeholder="pepe.silvia@example.com"
+              required
+              type="email"
+              value={fieldEmail}
+            />
+          </div>
         </FormControl>
 
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend" className={classes.formLabel}>
-            User Consent Preferences <br />
+            I agree to: <br />
           </FormLabel>
 
           <Typography>Please select at least one option.</Typography>

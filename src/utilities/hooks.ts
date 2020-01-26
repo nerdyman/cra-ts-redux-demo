@@ -32,7 +32,7 @@ export const useRouteActive = (): AppConfigRoute | undefined => {
 export const useStoreUserConsentGetConsents = (): storeDefs.StoreUserConsentCollection => {
   const userConsentConsents = useSelector(
     (state: storeDefs.Store) => state.userConsent.consents,
-  );
+  ).reverse();
   return userConsentConsents;
 };
 
