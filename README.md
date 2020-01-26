@@ -1,8 +1,22 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/067344c1-c638-431f-9887-c10737a7fa39/deploy-status)](https://app.netlify.com/sites/youthful-allen/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/067344c1-c638-431f-9887-c10737a7fa39/deploy-status)](https://app.netlify.com/sites/youthful-allen/deploys) [![Build Status](https://github.com/nerdyman/cra-ts-redux-demo/workflows/pipeline/badge.svg)](https://github.com/nerdyman/cra-ts-redux-demo/workflows/pipeline) [![codecov](https://codecov.io/gh/nerdyman/cra-ts-redux-demo/branch/master/graph/badge.svg?token=4YIz2PVvg8)](https://codecov.io/gh/nerdyman/cra-ts-redux-demo)
 
 # Create React App TypeScript + Redux Demo
 
-Super simple demo to submit and view user preferences.
+Super simple demo with basic (client-side) user management.
+
+## Demo
+
+View live demo at [https://youthful-allen.netlify.com](https://youthful-allen.netlify.com/).
+
+## Built with
+
+- React (hooks)
+- React Router
+- Redux
+- TypeScript
+- Material UI
+- fetch-mock
+- Create React App
 
 ## Debugging
 
@@ -11,18 +25,9 @@ and the Redux Developer Tools on builds.
 
 E.g. `https://youthful-allen.netlify.com/?debug=`
 
-## Built with
+## Notes
 
-- React (hooks)
-- Redux
-- TypeScript
-- Material UI
-- fetch-mock
-- Create React App
-
-## Demo
-
-View live demo at [https://youthful-allen.netlify.com](https://youthful-allen.netlify.com/).
+- Logo from [https://logodust.com/](https://logodust.com/)
 
 ---
 
@@ -70,7 +75,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Notes
-
-- Logo from [https://logodust.com/](https://logodust.com/)
