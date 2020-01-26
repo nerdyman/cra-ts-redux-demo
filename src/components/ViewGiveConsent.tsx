@@ -1,10 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
@@ -13,13 +15,19 @@ import {
   useServerPostUserConsents,
 } from '../utilities/hooks';
 import { logger } from '../utilities/logger';
+import { SharedDialog, useSharedDialogState } from './SharedDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      marginRight: 'auto',
+      marginLeft: 'auto',
+      maxWidth: '20rem',
+      padding: theme.spacing(2),
+    },
     form: {
       display: 'flex',
       flexDirection: 'column',
-      maxWidth: '20rem',
     },
     formControl: {
       marginTop: theme.spacing(4.5),
@@ -47,13 +55,50 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface DialogActions {
+  onClose: () => void;
+}
+
+const DialogActions: React.FC<DialogActions> = ({ onClose, ...props }) => (
+  <Button
+    onClick={onClose}
+    {...props}
+    variant="contained"
+    color="primary"
+    size="large"
+  >
+    Close
+  </Button>
+);
+
+/**
+ * Messages to show in main view dialog
+ */
+const dialogMessages = {
+  invalidConsents: (
+    <>
+      Please fill in both Name and Email fields <em>and</em> select at least one
+      consent preference.
+    </>
+  ),
+  duplicateEmail: (
+    <>This email address already exists, please provide a new one.</>
+  ),
+};
+
+/** Union of `dialogMessage` keys */
+type DialogMessagesKeys = keyof typeof dialogMessages;
+
 /**
  * Give consent view
  * @TODO - Use shareable functions for event handling
  */
 export const ViewGiveConsent: React.FC = () => {
-  const storeUserConsentGetConsents = useStoreUserConsentGetConsents();
   const classes = useStyles();
+  const dialogState = useSharedDialogState({ visible: false });
+  const [dialogMessage, setDialogMessage] = useState<DialogMessagesKeys>(
+    'invalidConsents',
+  );
   const formRef = useRef<HTMLFormElement>(document.createElement('form'));
   const [formIsBusy, setFormIsBusy] = useState(false);
   const [fieldName, setFieldName] = useState('');
@@ -66,6 +111,7 @@ export const ViewGiveConsent: React.FC = () => {
   );
   const [fieldConsentStatistics, setFieldConsentStatistics] = useState(false);
   const serverPostUserConsents = useServerPostUserConsents();
+  const storeUserConsentGetConsents = useStoreUserConsentGetConsents();
 
   /**
    * Handle form submit
@@ -86,6 +132,20 @@ export const ViewGiveConsent: React.FC = () => {
         email: fieldEmail,
         store: storeUserConsentGetConsents,
       });
+
+      setDialogMessage('duplicateEmail');
+      dialogState.show();
+
+      return;
+    }
+
+    if (
+      !fieldConsentNewsletter &&
+      !fieldConsentStatistics &&
+      !fieldConsentTargettedAds
+    ) {
+      setDialogMessage('invalidConsents');
+      dialogState.show();
       return;
     }
 
@@ -104,7 +164,11 @@ export const ViewGiveConsent: React.FC = () => {
     ]);
 
     setFormIsBusy(false);
-    formRef.current.reset();
+    setFieldEmail('');
+    setFieldName('');
+    setFieldConsentNewsletter(false);
+    setFieldConsentStatistics(false);
+    setFieldConsentTargettedAds(false);
   };
 
   /**
@@ -159,8 +223,18 @@ export const ViewGiveConsent: React.FC = () => {
     [],
   );
 
+  const Actions = <DialogActions onClose={dialogState.hide} />;
+
   return (
-    <div>
+    <Paper className={classes.root}>
+      <SharedDialog
+        actions={Actions}
+        sharedDialogState={dialogState}
+        title="Submission Failed"
+      >
+        {dialogMessages[dialogMessage]}
+      </SharedDialog>
+
       <form
         autoComplete="off"
         className={classes.form}
@@ -199,8 +273,10 @@ export const ViewGiveConsent: React.FC = () => {
 
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend" className={classes.formLabel}>
-            User Consent Preferences
+            User Consent Preferences <br />
           </FormLabel>
+
+          <Typography>Please select at least one option.</Typography>
 
           <FormControlLabel
             className={classes.formInputCheckbox}
@@ -208,6 +284,7 @@ export const ViewGiveConsent: React.FC = () => {
               <Checkbox
                 name="consent-newsletter"
                 value="user-consent-consents-newsletter"
+                checked={fieldConsentNewsletter}
               />
             }
             label="Revieve newsletter"
@@ -219,6 +296,7 @@ export const ViewGiveConsent: React.FC = () => {
               <Checkbox
                 name="consent-targetted-ads"
                 value="user-consent-consents-targetted-ads"
+                checked={fieldConsentTargettedAds}
               />
             }
             label="Be shown targetted ads"
@@ -230,6 +308,7 @@ export const ViewGiveConsent: React.FC = () => {
               <Checkbox
                 name="consent-statistics"
                 value="user-consent-consents-statistics"
+                checked={fieldConsentStatistics}
               />
             }
             label="Contribute to anonymous visit statistics"
@@ -250,6 +329,6 @@ export const ViewGiveConsent: React.FC = () => {
           </Button>
         </FormControl>
       </form>
-    </div>
+    </Paper>
   );
 };
