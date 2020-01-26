@@ -19,7 +19,7 @@ export const userConsents: StoreUserConsentCollection = [
     consent: {
       shouldCollectStats: true,
       shouldRecieveNewsLetter: true,
-      shouldShowTargetedAds: false,
+      shouldShowTargetedAds: true,
     },
     name: 'Charlie Kelly',
     email: 'charlie.kelly@example.com',
@@ -36,8 +36,8 @@ export const userConsents: StoreUserConsentCollection = [
   {
     consent: {
       shouldCollectStats: false,
-      shouldRecieveNewsLetter: false,
-      shouldShowTargetedAds: false,
+      shouldRecieveNewsLetter: true,
+      shouldShowTargetedAds: true,
     },
     name: 'Dennis Reynolds',
     email: 'dennis.reynolds@example.com',
