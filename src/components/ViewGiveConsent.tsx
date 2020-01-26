@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       maxWidth: '20rem',
       padding: theme.spacing(2),
+      [theme.breakpoints.up(1024)]: {
+        maxWidth: '40rem',
+      },
     },
     form: {
       display: 'flex',
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     formInputText: {
+      width: '100%',
       marginBottom: theme.spacing(1.75),
       '&:last-of-type': {
         marginBottom: 0,
@@ -52,7 +56,13 @@ const useStyles = makeStyles((theme: Theme) =>
     formLabel: {
       marginBottom: theme.spacing(1),
     },
-    formUserInfo: {},
+    formUserInfo: {
+      [theme.breakpoints.up(1024)]: {
+        display: 'grid',
+        gridAutoFlow: 'column',
+        gridGap: theme.spacing(4),
+      },
+    },
   }),
 );
 
@@ -279,7 +289,9 @@ export const ViewGiveConsent: React.FC<App.ReactFCTestProps> = props => {
             I agree to: <br />
           </FormLabel>
 
-          <Typography>Please select at least one option.</Typography>
+          <Typography variant="caption">
+            Please select at least one option.
+          </Typography>
 
           <FormControlLabel
             className={classes.formInputCheckbox}

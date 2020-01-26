@@ -1,6 +1,4 @@
-// import fromEntries from 'fromentries';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,25 +8,21 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import { getParsedConsentLabels } from '../utilities/response-parser';
 import { useStoreUserConsentGetConsents } from '../utilities/hooks';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
+/**
+ * Get consents with `.consent` values mapped to labels
+ */
+const useConsentsTableRows = () => {
+  const userConsents = useStoreUserConsentGetConsents();
+  const rows = userConsents.map(({ consent, ...props }) => ({
+    ...props,
+    consent: getParsedConsentLabels(consent),
+  }));
 
-// const useConsentsTableRows = () => {
-//   const userConsents = useStoreUserConsentGetConsents();
-//   const rows = userConsents.map(({ consent, ...props }) => ({
-//     ...props,
-//     ...fromEntries(
-//       Object.entries(consent).map(([key, value]) => [`consent${key}`, value]),
-//     ),
-//   }));
-
-//   return rows;
-// };
+  return rows;
+};
 
 /**
  * View collected consents view
@@ -38,8 +32,7 @@ const useStyles = makeStyles({
 export const ViewCollectedConsents: React.FC<App.ReactFCTestProps> = props => {
   const rowsPerPage = 2;
   const [page, setPage] = React.useState(0);
-  const classes = useStyles();
-  const rows = useStoreUserConsentGetConsents();
+  const rows = useConsentsTableRows();
 
   const handleChangePage = (_event: unknown, newPage: number): void => {
     setPage(newPage);
@@ -51,7 +44,7 @@ export const ViewCollectedConsents: React.FC<App.ReactFCTestProps> = props => {
   return (
     <Paper data-testid={props['data-testid']}>
       <TableContainer>
-        <Table className={classes.table} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -68,13 +61,7 @@ export const ViewCollectedConsents: React.FC<App.ReactFCTestProps> = props => {
                     {row.name}
                   </TableCell>
                   <TableCell>{row.email}</TableCell>
-                  <TableCell>
-                    {/* This is real dirty */}
-                    {Object.entries(row.consent)
-                      .map(([key, value]) => (value === true ? key : false))
-                      .filter(Boolean)
-                      .join(', ')}
-                  </TableCell>
+                  <TableCell>{row.consent}</TableCell>
                 </TableRow>
               ))}
             {emptyRows > 0 && (
