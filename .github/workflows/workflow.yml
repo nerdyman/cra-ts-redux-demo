@@ -1,0 +1,26 @@
+name: ci
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          version: 12.x
+      - name: Installing dependencies
+        run: yarn install --frozen-lockfile
+      - name: Running tests
+        run: yarn test --coverage
+      - name: Upload coverage to Codecov  
+          uses: codecov/codecov-action@v1
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            file: ./coverage.xml
+            flags: unittests
+            name: codecov-umbrella
+            yml: ./codecov.yml 
+            fail_ci_if_error: true
